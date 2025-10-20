@@ -1,0 +1,15 @@
+# Ignore Rust build artifacts and dependency folders
+target/
+**/target/
+# Ignore Cargo.lock (remove if you want to track dependency versions)
+Cargo.lock
+
+# Vendored crates / cargo metadata
+/vendor/
+/.cargo/
+/.cargo_vcs_info.json
+
+# Optional: compiled artifacts and incremental caches
+**/*.rlib
+**/*.rmeta
+**/incremental/

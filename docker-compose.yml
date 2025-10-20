@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------
+  # 1. PostgreSQL Database Service
+  # ----------------------------------------------------
+  db:
+    # Use a standard PostgreSQL image
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: boat_tracker_db
+    ports:
+      - "5432:5432"
+    volumes:
+      # Volume for persistent data
+      - postgres_data:/var/lib/postgresql/data
+      # Mount the initialization script to enable extensions
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      # Check if the database is ready for connections
+      test: ["CMD-SHELL", "pg_isready -U user -d boat_tracker_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
