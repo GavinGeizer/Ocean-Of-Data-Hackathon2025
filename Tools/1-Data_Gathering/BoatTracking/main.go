@@ -88,6 +88,9 @@ if err := kafkaWriter.WriteMessages(context.Background(),
 }
 
 func main() {
+	//were going to wait 10 seconds to allow Kafka to start up properly
+	time.Sleep(10 * time.Second)
+
 	kafkaBroker := os.Getenv("KAFKA_BROKER")
 	if kafkaBroker == "" {
 		kafkaBroker = "localhost:9092"
